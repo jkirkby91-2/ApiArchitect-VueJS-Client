@@ -1,6 +1,10 @@
 <template>
   <div class="hello">
     <button @click="authenticate('facebook')">auth Facebook</button>
+    <button @click="authenticate('google')">auth Google</button>
+    <button @click="authenticate('linkedin')">auth Linkedin</button>
+    <button @click="authenticate('bitbucket')">auth Bitbucket</button>
+    <button @click="authenticate('github')">auth Github</button>
 
   </div>
 </template>
