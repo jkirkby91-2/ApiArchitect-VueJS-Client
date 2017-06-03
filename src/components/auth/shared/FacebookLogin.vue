@@ -1,5 +1,5 @@
 <template>
-    <a @click="oauthLogin('facebook')" class="btn btn-block btn-social btn-facebook">
+    <a @click="emitOauthLogin('facebook')" class="btn btn-block btn-social btn-facebook">
       <span class="fa fa-facebook"></span> Sign in with Facebook
     </a>  
 </template>
@@ -50,8 +50,14 @@
     },
 
     methods: {
+      emitOauthLogin (provider) {
+        this.$root.$options.EventBus.$emit('OAUTH_LOGIN', provider)
+      },
+
       oauthLogin (provider) {
-        this.$store.dispatch('auth/oauthLogin', provider)
+        this.$store.dispatch('auth/oauthLogin', provider).catch(function (error) {
+          console.log(error)
+        })
       }
     }
 

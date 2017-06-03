@@ -1,5 +1,5 @@
 <template>
-    <a @click="oauthLogin('github')" class="btn btn-block btn-social btn-github">
+    <a @click="emitOauthLogin('github')" class="btn btn-block btn-social btn-github">
       <span class="fa fa-github"></span> Sign in with GitHub
     </a>
 </template>
@@ -50,8 +50,14 @@
     },
 
     methods: {
+      emitOauthLogin (provider) {
+        this.$root.$options.EventBus.$emit('OAUTH_LOGIN', provider)
+      },
+
       oauthLogin (provider) {
-        this.$store.dispatch('auth/oauthLogin', provider)
+        this.$store.dispatch('auth/oauthLogin', provider).catch(function (error) {
+          console.log(error)
+        })
       }
     }
 
