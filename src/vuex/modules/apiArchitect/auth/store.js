@@ -52,9 +52,27 @@ const getters = {
 
 const actions = {
   login (context, payload) {
-    apiArchitectAuth.login(payload.user, payload.requestOptions).then((response) => {
-      context.commit('isAuthenticated', {
-        isAuthenticated: apiArchitectAuth.isAuthenticated()
+    return new Promise((resolve, reject) => {
+      apiArchitectAuth.login(payload.user, payload.requestOptions).then((response) => {
+        context.commit('isAuthenticated', {
+          isAuthenticated: apiArchitectAuth.isAuthenticated()
+        })
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+    })
+  },
+
+  oauthLogin (context, payload) {
+    return new Promise((resolve, reject) => {
+      apiArchitectAuth.authenticate(payload).then(response => {
+        context.commit('isAuthenticated', {
+          isAuthenticated: apiArchitectAuth.isAuthenticated()
+        })
+        resolve(response)
+      }, error => {
+        reject(error)
       })
     })
   },

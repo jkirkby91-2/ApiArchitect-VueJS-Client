@@ -1,5 +1,5 @@
 <template>
-    <a @click="authenticate('facebook')" class="btn btn-block btn-social btn-facebook">
+    <a @click="oauthLogin('facebook')" class="btn btn-block btn-social btn-facebook">
       <span class="fa fa-facebook"></span> Sign in with Facebook
     </a>  
 </template>
@@ -50,7 +50,9 @@
     },
 
     methods: {
-
+      oauthLogin (provider) {
+        this.$store.dispatch('auth/oauthLogin', provider)
+      }
     }
 
   }

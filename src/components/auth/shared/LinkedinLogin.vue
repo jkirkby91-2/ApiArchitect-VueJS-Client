@@ -1,5 +1,5 @@
 <template>
-    <a @click="authenticate('linkedin')" class="btn btn-block btn-social btn-linkedin">
+    <a @click="oauthLogin('linkedin')" class="btn btn-block btn-social btn-linkedin">
       <span class="fa fa-linkedin"></span> Sign in with Linkedin
     </a> 
 </template>
@@ -50,7 +50,9 @@
     },
 
     methods: {
-
+      oauthLogin (provider) {
+        this.$store.dispatch('auth/oauthLogin', provider)
+      }
     }
 
   }

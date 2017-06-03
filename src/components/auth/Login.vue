@@ -82,7 +82,7 @@
     },
 
     created () {
-
+      this.$store.watch((state) => (state.auth.isAuthenticated), this.handleOnAuthSucces)
     },
 
     beforeMount () {
@@ -90,7 +90,10 @@
     },
 
     mounted () {
-
+      let _this = this
+      this.$root.$options.EventBus.$on('OAUTH_LOGIN', function (payLoad) {
+        _this.oAuthLogin(payLoad)
+      })
     },
 
     beforeUpdate () {
@@ -118,9 +121,21 @@
     methods: {
       login () {
         this.$store.dispatch('auth/login', { user: this.data.login })
+      },
+
+      oAuthLogin (payLoad) {
+        this.$store.dispatch('auth/oauthLogin', payLoad)
+      },
+
+      handleOnAuthSucces () {
+        let _this = this
+        this.$store.dispatch('user/getUser').then(function (response) {
+          _this.$router.push('/user/profile')
+        }).catch(function (error) {
+          console.log(error)
+        })
       }
     }
-
   }
 
 </script>
@@ -130,25 +145,25 @@
     color: #363636;
   }
 
-.btn-block + .btn-block {
+  .btn-block + .btn-block {
     margin-top: 5px;
-}
+  }
 
-.btn-social {
+  .btn-social {
     position: relative;
     padding-left: 44px;
     text-align: left;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-}
+  }
 
-.btn-block {
+  .btn-block {
     display: block;
     width: 100%;
-}
+  }
 
-.btn {
+  .btn {
     display: inline-block;
     padding: 6px 12px;
     margin-bottom: 0;
@@ -168,9 +183,9 @@
     background-image: none;
     border: 1px solid transparent;
     border-radius: 4px;
-}
+  }
 
-.btn-social>:first-child {
+  .btn-social>:first-child {
     position: absolute;
     left: 0;
     top: 0;
@@ -180,6 +195,6 @@
     font-size: 1.6em;
     text-align: center;
     border-right: 1px solid rgba(0,0,0,0.2);
-}  
+  }  
 
 </style>

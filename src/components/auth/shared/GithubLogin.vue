@@ -1,5 +1,5 @@
 <template>
-    <a class="btn btn-block btn-social btn-github">
+    <a @click="oauthLogin('github')" class="btn btn-block btn-social btn-github">
       <span class="fa fa-github"></span> Sign in with GitHub
     </a>
 </template>
@@ -50,7 +50,9 @@
     },
 
     methods: {
-
+      oauthLogin (provider) {
+        this.$store.dispatch('auth/oauthLogin', provider)
+      }
     }
 
   }

@@ -119,10 +119,8 @@
     methods: {
       register: function () {
         this.$store.dispatch('auth/register', { register: this.data.register }).then(function (response) {
-          // request successful, let Vuex mutate the state
-          console.log(response)
-        }).catch(function () {
-          // display error, not related to Vuex
+        }).catch(function (error) {
+          console.log(error)
         })
       }
     }

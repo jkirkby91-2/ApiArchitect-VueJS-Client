@@ -2,12 +2,17 @@ import mutations from './mutations'
 import actions from './actions'
 
 const state = {
-  'version': null
+  uid: '',
+  username: '',
+  name: '',
+  email: '',
+  avatar: '',
+  roles: []
 }
 
 const getters = {
-  version: state => {
-    return state.version
+  getUser: state => {
+    return state.user
   }
 }
 
@@ -18,7 +23,5 @@ const module = {
   state,
   getters
 }
-
-console.log(module)
 
 export default module

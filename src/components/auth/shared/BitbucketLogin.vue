@@ -1,5 +1,5 @@
 <template>
-    <a @click="authenticate('bitbucket')" class="btn btn-block btn-social btn-bitbucket">
+    <a @click="oauthLogin('bitbucket')" class="btn btn-block btn-social btn-bitbucket">
       <span class="fa fa-bitbucket"></span> Sign in with Bitbucket
     </a> 
 </template>
@@ -50,7 +50,9 @@
     },
 
     methods: {
-
+      oauthLogin (provider) {
+        this.$store.dispatch('auth/oauthLogin', provider)
+      }
     }
 
   }
