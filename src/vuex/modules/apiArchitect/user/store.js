@@ -1,27 +1,17 @@
-import mutations from './mutations'
 import actions from './actions'
+import mutations from './mutations'
+import initialState from './initialState'
+import getters from './getters'
 
-const state = {
-  uid: '',
-  username: '',
-  name: '',
-  email: '',
-  avatar: '',
-  roles: []
-}
-
-const getters = {
-  getUser: state => {
-    return state.user
-  }
-}
+const state = initialState
 
 const module = {
   namespaced: true,
-  mutations,
-  actions,
+  initialState,
   state,
-  getters
+  mutations,
+  getters,
+  actions
 }
 
 export default module

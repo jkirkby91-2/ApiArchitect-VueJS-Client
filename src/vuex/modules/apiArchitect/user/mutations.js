@@ -1,6 +1,5 @@
 const mutations = {
   UPDATE_USER: (state, value) => {
-    console.log(value.data)
     if (value && typeof value === 'object') {
       let keys = Object.keys(value.data)
 

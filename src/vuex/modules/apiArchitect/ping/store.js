@@ -1,22 +1,17 @@
-import mutations from './mutations'
 import actions from './actions'
+import mutations from './mutations'
+import initialState from './initialState'
+import getters from './getters'
 
-const state = {
-  'version': null
-}
-
-const getters = {
-  version: state => {
-    return state.version
-  }
-}
+const state = initialState
 
 const module = {
   namespaced: true,
-  mutations,
-  actions,
+  initialState,
   state,
-  getters
+  mutations,
+  getters,
+  actions
 }
 
 export default module
