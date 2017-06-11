@@ -24,11 +24,13 @@
     },
 
     beforeMount () {
-
+      if (this.$store.getters['auth/isAuthenticated'] === true) {
+        this.$store.dispatch('auth/logout', {})
+      }
+      this.$router.push({ name: 'Login' })
     },
 
     mounted () {
-
     },
 
     beforeUpdate () {
@@ -45,6 +47,12 @@
 
     destroyed () {
 
+    },
+
+    computed: {
+      isAuthenticated: function () {
+        return this.$store.getters['auth/isAuthenticated']
+      }
     },
 
     methods: {

@@ -54,6 +54,8 @@
   import GithubLogin from './shared/GithubLogin.vue'
   import GoogleLogin from './shared/GoogleLogin.vue'
   import LinkedinLogin from './shared/LinkedinLogin.vue'
+  import { Loading } from 'quasar'
+  import axios from 'axios'
 
   export default {
 
@@ -82,8 +84,9 @@
     },
 
     created () {
-      this.$store.watch((state) => (state.auth.isAuthenticated), function () {
-        console.log(123)
+      let _this = this
+      this.$store.watch((state) => (state.auth.isAuthenticated), function (state) {
+        _this.handleOnAuthSucces(state)
       })
     },
 
@@ -92,8 +95,8 @@
     },
 
     mounted () {
+      // Loading.hide()
       let _this = this
-      console.log(this)
       this.$root.$options.EventBus.$on('OAUTH_LOGIN', function (payLoad) {
         _this.oAuthLogin(payLoad)
       })
@@ -117,7 +120,7 @@
 
     computed: {
       isAuthenticated: function () {
-        return this.$store.getters['auth/isAuthenticated']
+        return this.$store.getters['auth/getIsAuthenticated']
       }
     },
 
@@ -127,14 +130,20 @@
       },
 
       oAuthLogin (payLoad) {
-        this.$store.dispatch('auth/oauthLogin', payLoad)
+        Loading.show()
+        this.$store.dispatch('auth/oauthLogin', payLoad).then(function (response) {
+          Loading.hide()
+        }).catch(function (error) {
+          console.log(error)
+        })
       },
 
-      handleOnAuthSucces () {
+      handleOnAuthSucces ($state) {
         let _this = this
-        console.log(this)
+
+        axios.defaults.headers.common.Authorization = 'Bearer ' + localStorage.getItem('vue-authenticate.vueauth_token')
         this.$store.dispatch('user/getUser').then(function (response) {
-          _this.$router.push('/user/profile')
+          _this.$router.push({name: 'Home'})
         }).catch(function (error) {
           console.log(error)
         })
@@ -144,7 +153,11 @@
 
 </script>
 
-<style @scoped>
+<style scoped>
+  input {
+    width: 100%;
+  }
+  
   .box.is-light {
     color: #363636;
   }
