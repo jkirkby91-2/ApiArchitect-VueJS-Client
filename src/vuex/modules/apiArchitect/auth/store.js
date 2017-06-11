@@ -9,6 +9,7 @@ Vue.use(VueResource)
 
 const apiArchitectAuth = new VueAuthenticate(Vue.http, {
   baseUrl: config.API_URL,
+  // logoutUrl: config.API_URL + '/auth/logout'
   providers: {
     facebook: {
       url: config.FACEBOOK_URL,
@@ -78,7 +79,15 @@ const actions = {
   },
 
   logout (context, payload) {
-    apiArchitectAuth.logout()
+    return new Promise((resolve, reject) => {
+      apiArchitectAuth.logout().then((response) => {
+        context.commit('isAuthenticated', {
+          isAuthenticated: false)
+        resolve(response)
+      }, error => {
+        reject(error)
+      })
+    })
   },
 
   register (context, payload) {

@@ -82,7 +82,9 @@
     },
 
     created () {
-      this.$store.watch((state) => (state.auth.isAuthenticated), this.handleOnAuthSucces)
+      this.$store.watch((state) => (state.auth.isAuthenticated), function () {
+        console.log(123)
+      })
     },
 
     beforeMount () {
@@ -91,6 +93,7 @@
 
     mounted () {
       let _this = this
+      console.log(this)
       this.$root.$options.EventBus.$on('OAUTH_LOGIN', function (payLoad) {
         _this.oAuthLogin(payLoad)
       })
@@ -129,6 +132,7 @@
 
       handleOnAuthSucces () {
         let _this = this
+        console.log(this)
         this.$store.dispatch('user/getUser').then(function (response) {
           _this.$router.push('/user/profile')
         }).catch(function (error) {

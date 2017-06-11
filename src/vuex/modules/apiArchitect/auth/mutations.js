@@ -1,6 +1,6 @@
 const mutations = {
   isAuthenticated (state, payload) {
-    state.isAuthenticated = payload.isAuthenticated
+    state = payload.isAuthenticated
   }
 }
 

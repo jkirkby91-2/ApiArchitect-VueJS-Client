@@ -25,7 +25,7 @@
 
     beforeMount () {
       if (this.$store.getters['auth/isAuthenticated'] === true) {
-        this.logout()
+        this.$store.dispatch('auth/logout', {})
       }
       this.$router.push({ name: 'Login' })
     },
@@ -49,16 +49,14 @@
 
     },
 
-    // computed: {
-    //   isAuthenticated: function () {
-    //     return this.$store.getters['auth/isAuthenticated']
-    //   }
-    // },
+    computed: {
+      isAuthenticated: function () {
+        return this.$store.getters['auth/isAuthenticated']
+      }
+    },
 
     methods: {
-      logout () {
-        this.$store.dispatch('auth/logout', {})
-      }
+
     }
 
   }
