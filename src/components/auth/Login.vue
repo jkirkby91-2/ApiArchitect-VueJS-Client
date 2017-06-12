@@ -138,7 +138,6 @@
       handleOnAuthSucces ($state) {
         let _this = this
 
-        // axios.defaults.headers.common.Authorization = 'Bearer ' + localStorage.getItem('vue-authenticate.vueauth_token')
         this.$apiArchitect.dispatch('user/getUser').then(function (response) {
           _this.$router.push({name: 'Home'})
         }).catch(function (error) {
