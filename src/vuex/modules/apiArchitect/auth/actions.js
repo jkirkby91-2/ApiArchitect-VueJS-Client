@@ -1,7 +1,7 @@
 import Vue from 'vue'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
-import vueConfig from '../../../../config/'
+import vueConfig from '../../../../config'
 import { VueAuthenticate } from 'vue-authenticate'
 
 Vue.use(VueAxios, axios)

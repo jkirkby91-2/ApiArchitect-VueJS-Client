@@ -1,5 +1,5 @@
 import axios from 'axios'
-import vueConfig from '../../../../config/'
+import vueConfig from '../../../../config'
 
 const actions = {
   getUser: ({ commit }) => {
