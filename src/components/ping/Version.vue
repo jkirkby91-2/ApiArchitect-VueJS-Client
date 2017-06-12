@@ -24,8 +24,8 @@
     },
 
     beforeMount () {
-      if (this.$store.getters['auth/isAuthenticated'] === true) {
-        this.$store.dispatch('auth/logout', {})
+      if (this.$apiArchitect.getters['auth/isAuthenticated'] === true) {
+        this.$apiArchitect.dispatch('auth/logout', {})
       }
       this.$router.push({ name: 'Login' })
     },
@@ -50,9 +50,7 @@
     },
 
     computed: {
-      isAuthenticated: function () {
-        return this.$store.getters['auth/isAuthenticated']
-      }
+
     },
 
     methods: {

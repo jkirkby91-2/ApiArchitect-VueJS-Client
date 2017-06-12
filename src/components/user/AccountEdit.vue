@@ -13,7 +13,7 @@
 
 <script>
 
-  import { Loading } from 'quasar'
+  // import { Loading } from 'quasar'
 
   export default {
 
@@ -22,8 +22,8 @@
         context: '',
         data: {
           user: {
-            name: this.$store.state.user.name,
-            email: this.$store.getters['user/getUser'].email
+            name: this.$apiArchitect.state.user.name,
+            email: this.$apiArchitect.getters['user/getUser'].email
           }
         }
       }
@@ -63,10 +63,9 @@
 
     methods: {
       updateUser: function () {
-        console.log(this.data.user)
-        Loading.show()
-        this.$store.dispatch('user/updateUser', this.data.user).then((success) => {
-          Loading.hide()
+        // Loading.show()
+        this.$apiArchitect.dispatch('user/updateUser', this.data.user).then((success) => {
+          // Loading.hide()
         }).catch(() => {
           alert('something went wrong')
         })

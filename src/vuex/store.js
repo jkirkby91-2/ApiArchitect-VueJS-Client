@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import Vuex from 'vuex'
+import config from '../config/'
 
 Vue.use(Vuex)
 
@@ -16,4 +17,11 @@ const store = new Vuex.Store({
   strict: true
 })
 
-export default store
+export default {
+  store,
+
+  install (Vue, options) {
+    Vue.prototype.$apiArchitect = store
+    Vue.prototype.$apiArchitect.$config = config
+  }
+}

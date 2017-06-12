@@ -54,8 +54,6 @@
   import GithubLogin from './shared/GithubLogin.vue'
   import GoogleLogin from './shared/GoogleLogin.vue'
   import LinkedinLogin from './shared/LinkedinLogin.vue'
-  import { Loading } from 'quasar'
-  import axios from 'axios'
 
   export default {
 
@@ -85,7 +83,7 @@
 
     created () {
       let _this = this
-      this.$store.watch((state) => (state.auth.isAuthenticated), function (state) {
+      this.$apiArchitect.watch((state) => (state.auth.isAuthenticated), function (state) {
         _this.handleOnAuthSucces(state)
       })
     },
@@ -119,20 +117,19 @@
     },
 
     computed: {
-      isAuthenticated: function () {
-        return this.$store.getters['auth/getIsAuthenticated']
-      }
+
     },
 
     methods: {
       login () {
-        this.$store.dispatch('auth/login', { user: this.data.login })
+        this.$apiArchitect.dispatch('auth/login', { user: this.data.login })
       },
 
       oAuthLogin (payLoad) {
-        Loading.show()
-        this.$store.dispatch('auth/oauthLogin', payLoad).then(function (response) {
-          Loading.hide()
+        // Loading.show() //dispatch a loading event
+        this.$apiArchitect.dispatch('auth/oauthLogin', payLoad).then(function (response) {
+          // Loading.hide() //dispatch a finish loading event
+          console.log(response)
         }).catch(function (error) {
           console.log(error)
         })
@@ -141,8 +138,8 @@
       handleOnAuthSucces ($state) {
         let _this = this
 
-        axios.defaults.headers.common.Authorization = 'Bearer ' + localStorage.getItem('vue-authenticate.vueauth_token')
-        this.$store.dispatch('user/getUser').then(function (response) {
+        // axios.defaults.headers.common.Authorization = 'Bearer ' + localStorage.getItem('vue-authenticate.vueauth_token')
+        this.$apiArchitect.dispatch('user/getUser').then(function (response) {
           _this.$router.push({name: 'Home'})
         }).catch(function (error) {
           console.log(error)

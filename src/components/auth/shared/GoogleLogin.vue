@@ -53,13 +53,13 @@
 
       emitOauthLogin (provider) {
         this.$root.$options.EventBus.$emit('OAUTH_LOGIN', provider)
-      },
-
-      oauthLogin (provider) {
-        this.$store.dispatch('auth/oauthLogin', provider).catch(function (error) {
-          console.log(error)
-        })
       }
+
+      // oauthLogin (provider) {
+      //   this.$store.dispatch('auth/oauthLogin', provider).catch(function (error) {
+      //     console.log(error)
+      //   })
+      // }
     }
 
   }

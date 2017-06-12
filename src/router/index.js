@@ -4,8 +4,7 @@ import Login from '@/components/auth/Login'
 import Logout from '@/components/auth/Logout'
 import Register from '@/components/auth/Register'
 import PasswordReset from '@/components/auth/PasswordReset'
-import UserProfile from '@/components/profile/UserProfile'
-import UserProfileEdit from '@/components/profile/UserProfileEdit'
+import AccountEdit from '@/components/user/AccountEdit'
 
 Vue.use(Router)
 
@@ -36,14 +35,9 @@ const routes = new Router({
       component: PasswordReset
     },
     {
-      path: '/user/profile',
-      name: 'UserProfile',
-      component: UserProfile
-    },
-    {
-      path: '/user/profile/edit',
-      name: 'UserProfileEdit',
-      component: UserProfileEdit
+      path: '/user/account/edit',
+      name: 'AccountEdit',
+      component: AccountEdit
     },
     {
       path: '/auth/oauth/{provider}/callback',
