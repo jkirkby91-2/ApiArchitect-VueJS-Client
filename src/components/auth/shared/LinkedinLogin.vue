@@ -1,7 +1,7 @@
 <template>
     <a @click="emitOauthLogin('linkedin')" class="btn btn-block btn-social btn-linkedin">
       <span class="fa fa-linkedin"></span> Sign in with Linkedin
-    </a> 
+    </a>
 </template>
 
 <script>
@@ -52,12 +52,6 @@
     methods: {
       emitOauthLogin (provider) {
         this.$root.$options.EventBus.$emit('OAUTH_LOGIN', provider)
-      },
-
-      oauthLogin (provider) {
-        this.$store.dispatch('auth/oauthLogin', provider).catch(function (error) {
-          console.log(error)
-        })
       }
     }
 

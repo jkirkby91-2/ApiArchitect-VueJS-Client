@@ -1,32 +1,12 @@
 import Vue from 'vue'
-import axios from 'axios'
-import VueAxios from 'vue-axios'
-import vueConfig from '../../../../config/'
+import VueResource from 'vue-resource'
+import vueConfig from '../../../../../config'
 import { VueAuthenticate } from 'vue-authenticate'
 
-Vue.use(VueAxios, axios)
+Vue.use(VueResource)
 
-const apiArchitectAuth = new VueAuthenticate(Vue.axios, {
+const apiArchitectAuth = new VueAuthenticate(Vue.http, {
   baseUrl: vueConfig.API_URL,
-  bindRequestInterceptor: function () {
-    this.$http.interceptors.request.use((config) => {
-      if (this.isAuthenticated()) {
-        config.headers['Authorization'] = [
-          this.options.tokenType, this.getToken()
-        ].join(' ')
-      } else {
-        delete config.headers['Authorization']
-      }
-      return config
-    })
-  },
-
-  bindResponseInterceptor: function () {
-    this.$http.interceptors.response.use((response) => {
-      apiArchitectAuth.setToken(response.data)
-      return response
-    })
-  },
   providers: {
     facebook: {
       display: 'popup',
@@ -80,8 +60,6 @@ const actions = {
   oauthLogin (context, payload) {
     return new Promise((resolve, reject) => {
       apiArchitectAuth.authenticate(payload).then(response => {
-        console.log(response)
-        apiArchitectAuth.setToken(response)
         context.commit('setIsAuthenticated', {
           isAuthenticated: apiArchitectAuth.isAuthenticated()
         })
