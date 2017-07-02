@@ -2,9 +2,6 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import config from '../config/'
 import routes from './routes'
-import ping from './vuex/modules/apiArchitect/ping/store'
-import auth from './vuex/modules/apiArchitect/auth/store'
-import user from './vuex/modules/apiArchitect/user/store'
 
 Vue.use(Vuex)
 
