@@ -4,7 +4,7 @@ export default function addRouteGuards (router) {
       if (!this.$apiArchitect.getters['auth/isAuthenticated']) {
         next({
           path: '/login',
-          query: { redirect: to.fullPath }
+          query: {redirect: to.fullPath}
         })
       } else {
         next()
@@ -13,3 +13,4 @@ export default function addRouteGuards (router) {
       next()
     }
   })
+}
