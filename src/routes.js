@@ -8,43 +8,43 @@ import AccountEdit from './components/user/AccountEdit'
 import Version from './components/ping/Version'
 
 const routes = [
-  {
-    path: '/login',
-    name: 'Login',
-    component: Login
-  },
-  {
-    path: '/logout',
-    name: 'Logout',
-    component: Logout
-  },
-  {
-    path: '/register',
-    name: 'Register',
-    component: Register
-  },
-  {
-    path: '/password/reset',
-    name: 'PasswordReset',
-    component: PasswordReset
-  },
-  {
-    path: '/user/account/edit',
-    name: 'AccountEdit',
-    component: AccountEdit
-  },
-  {
-    path: '/settings/version',
-    name: 'SettingsVersion',
-    component: Version,
-    meta: { requiresAuth: true }
-  },
-  {
-    path: '/auth/oauth/{provider}/callback',
-    component: {
-      template: '<div class="auth-component"></div>'
+    {
+      path: '/login',
+      name: 'Login',
+      component: Login
     },
-  }
+    {
+      path: '/logout',
+      name: 'Logout',
+      component: Logout
+    },
+    {
+      path: '/register',
+      name: 'Register',
+      component: Register
+    },
+    {
+      path: '/password/reset',
+      name: 'PasswordReset',
+      component: PasswordReset
+    },
+    {
+      path: '/user/account/edit',
+      name: 'AccountEdit',
+      component: AccountEdit
+    },
+    {
+      path: '/settings/version',
+      name: 'SettingsVersion',
+      component: Version,
+      meta: { requiresAuth: true }
+    },
+    {
+      path: '/auth/oauth/{provider}/callback',
+      component: {
+        template: '<div class="auth-component"></div>'
+      }
+    }
 ]
 
 export default routes

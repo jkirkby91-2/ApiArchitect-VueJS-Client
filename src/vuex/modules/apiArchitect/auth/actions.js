@@ -1,3 +1,4 @@
+
 import Vue from 'vue'
 import VueResource from 'vue-resource'
 import vueConfig from '../../../../../config/'

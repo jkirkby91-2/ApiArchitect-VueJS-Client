@@ -60,7 +60,6 @@
     methods: {
 
     },
-
     computed: {
       appVersion: function () {
         return this.$store.getters['ping/version']
