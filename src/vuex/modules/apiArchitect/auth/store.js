@@ -5,7 +5,7 @@ import getters from './getters'
 
 const state = initialState
 
-const module = {
+const authModule = {
   namespaced: true,
   initialState,
   state,
@@ -14,4 +14,4 @@ const module = {
   actions
 }
 
-export default module
+export default authModule

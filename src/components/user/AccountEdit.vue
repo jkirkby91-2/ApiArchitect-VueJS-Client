@@ -1,29 +1,47 @@
 <template>
-  <div class="layout-padding">
-    <div id="view-flexbox">
-      <h4> Account Edit </h4>
-      <input placeholder="Name" :value="this.data.user.name">
-      <input placeholder="Email" :value="this.data.user.email">
-    </div>
-    <div>
-      <button @click="updateUser()" class="primary full-width update-btn">update</button>
+  <div class="col-12">
+    <div class="layout-padding ">
+      <q-field
+        icon="account_circle"
+        label="Name"
+        error-label="We need a valid email"
+      >
+        <q-input v-model="data.user.name" />
+      </q-field>
+      <q-field
+        icon="email"
+        label="Email"
+        error-label="We need a valid email"
+      >
+        <q-input v-model="data.user.email" />
+      </q-field>
+      <div>
+        <q-btn @click="updateUser()" color="primary full-width update-btn">Update Account</q-btn>
+      </div>
     </div>
   </div>
 </template>
 
 <script>
 
-  // import { Loading } from 'quasar'
+  import { Loading, QField, QInput, QBtn } from 'quasar'
 
   export default {
+
+    components: {
+      QField,
+      QInput,
+      QBtn
+    },
 
     data () {
       return {
         context: '',
         data: {
           user: {
-            name: this.$apiArchitect.state.user.name,
-            email: this.$apiArchitect.getters['user/getUser'].email
+            name: this.$apiArchitect.getters['user/getUser'].name,
+            email: this.$apiArchitect.getters['user/getUser'].email,
+            uid: this.$apiArchitect.getters['user/getUser'].uid
           }
         }
       }
@@ -63,9 +81,9 @@
 
     methods: {
       updateUser: function () {
-        // Loading.show()
-        this.$apiArchitect.dispatch('user/updateUser', this.data.user).then((success) => {
-          // Loading.hide()
+        Loading.show()
+        this.$store.dispatch('user/updateUser', this.data.user).then((success) => {
+          Loading.hide()
         }).catch(() => {
           alert('something went wrong')
         })

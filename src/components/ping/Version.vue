@@ -1,5 +1,18 @@
 <template>
-
+  <div class="col-12">
+    <div class="layout-padding ">
+      <div class="row justify-center">
+        <div class="12">
+          <p class="caption">App Version {{appVersion}}</p>
+        </div>
+      </div>
+      <div class="row justify-center">
+        <div class="12">
+          <p class="caption">Incubated By The <a href="https://blacksands.network">BlackSands Network</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
@@ -8,10 +21,7 @@
 
     data () {
       return {
-        context: '',
-        data: {
-
-        }
+        context: ''
       }
     },
 
@@ -24,13 +34,11 @@
     },
 
     beforeMount () {
-      if (this.$apiArchitect.getters['auth/isAuthenticated'] === true) {
-        this.$apiArchitect.dispatch('auth/logout', {})
-      }
-      this.$router.push({ name: 'Login' })
+
     },
 
     mounted () {
+
     },
 
     beforeUpdate () {
@@ -49,14 +57,15 @@
 
     },
 
-    computed: {
+    methods: {
 
     },
 
-    methods: {
-
+    computed: {
+      appVersion: function () {
+        return this.$store.getters['ping/version']
+      }
     }
-
   }
 
 </script>

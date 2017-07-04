@@ -1,47 +1,12 @@
 <template>
-  <div class="account-login">
-    <section class="hero is-fullheight">
-      <div class="hero-body">
-        <div class="container">
-          <div class="columns">
-            <div class="column is-4 is-offset-4">
-              <h1 class="title">Login</h1>            
-              <form class="">
-                <p class="control has-icon">
-                  <input v-model="data.login.email" class="input" type="text" placeholder="Email">
-                  <span class="icon is-small">
-                    <i class="fa fa-envelope"></i>
-                  </span>
-                </p>
-                <p class="control has-addons has-icon">
-                  <input v-model="data.login.password" class="input is-expanded" type="password" placeholder="Password">
-                  <span class="icon is-small">
-                    <i class="fa fa-lock"></i>
-                  </span>
-                  <a class="button">
-                    <router-link :to="{ name: 'PasswordReset' }">
-                      Forgot?
-                    </router-link>
-                  </a>
-                </p>
-                <hr />
-                <a @click.prevent="login()" class="btn btn-block btn-social button is-primary">
-                  <span class="fa fa-sign-in"></span> Sign In
-                </a>                 
-                <bitbucket-login></bitbucket-login>
-                <facebook-login></facebook-login>
-                <github-login></github-login>
-                <google-login></google-login>
-                <linkedin-login></linkedin-login>
-              </form>
-              <div class="has-text-centered">
-                <router-link :to="{ name: 'Register' }" class="is-inverted is-fullwidth">
-                  Register an account
-                </router-link>
-              </div>
-            </div>
-          </div>
-        </div>
+  <div class="hero window-height col-12 row justify-center" v-if="isAuthenticated === false">
+    <section class="col-10">
+      <div class="social-btn-container">
+        <facebook-login></facebook-login>
+        <bitbucket-login></bitbucket-login>
+        <github-login></github-login>
+        <google-login></google-login>
+        <linkedin-login></linkedin-login>
       </div>
     </section>
   </div>
@@ -54,6 +19,8 @@
   import GithubLogin from './shared/GithubLogin.vue'
   import GoogleLogin from './shared/GoogleLogin.vue'
   import LinkedinLogin from './shared/LinkedinLogin.vue'
+  import { Loading } from 'quasar'
+  import axios from 'axios'
 
   export default {
 
@@ -82,9 +49,8 @@
     },
 
     created () {
-      let _this = this
-      this.$apiArchitect.watch((state) => (state.auth.isAuthenticated), function (state) {
-        _this.handleOnAuthSucces(state)
+      this.$apiArchitect.watch((state) => (state.auth.isAuthenticated), (state) => {
+        this.handleOnAuthSucces(state)
       })
     },
 
@@ -94,9 +60,8 @@
 
     mounted () {
       // Loading.hide()
-      let _this = this
-      this.$root.$options.EventBus.$on('OAUTH_LOGIN', function (payLoad) {
-        _this.oAuthLogin(payLoad)
+      this.$root.$options.EventBus.$on('OAUTH_LOGIN', (payLoad) => {
+        this.oAuthLogin(payLoad)
       })
     },
 
@@ -117,7 +82,10 @@
     },
 
     computed: {
-
+      isAuthenticated: function () {
+        console.log(this)
+        return this.$apiArchitect.getters['auth/getIsAuthenticated']
+      }
     },
 
     methods: {
@@ -126,10 +94,9 @@
       },
 
       oAuthLogin (payLoad) {
-        // Loading.show() //dispatch a loading event
+        Loading.show()
         this.$apiArchitect.dispatch('auth/oauthLogin', payLoad).then(function (response) {
-          // Loading.hide() //dispatch a finish loading event
-          console.log(response)
+          Loading.hide()
         }).catch(function (error) {
           console.log(error)
         })
@@ -138,6 +105,7 @@
       handleOnAuthSucces ($state) {
         let _this = this
 
+        axios.defaults.headers.common.Authorization = 'Bearer ' + localStorage.getItem('vue-authenticate.vueauth_token')
         this.$apiArchitect.dispatch('user/getUser').then(function (response) {
           _this.$router.push({name: 'Home'})
         }).catch(function (error) {
@@ -150,10 +118,24 @@
 </script>
 
 <style scoped>
+
+  .title {
+    color: white;
+    text-align: center;
+  }
+
   input {
     width: 100%;
   }
-  
+
+  h3.title {
+    margin-top: 125px;
+  }
+
+  .social-btn-container {
+    margin-top: 50px;
+  }
+
   .box.is-light {
     color: #363636;
   }
@@ -208,6 +190,6 @@
     font-size: 1.6em;
     text-align: center;
     border-right: 1px solid rgba(0,0,0,0.2);
-  }  
+  }
 
 </style>

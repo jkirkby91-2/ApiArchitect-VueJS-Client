@@ -4,7 +4,7 @@ const mutations = {
   },
 
   setIsNotAuthenticated (state, payload) {
-    state.isAuthenticated = false
+    state.isAuthenticated = payload.isAuthenticated
   },
 
   setRoles (state, payload) {

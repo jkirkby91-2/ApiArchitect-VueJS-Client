@@ -118,7 +118,7 @@
 
     methods: {
       register: function () {
-        this.$apiArchitect.dispatch('auth/register', { register: this.data.register }).then(function (response) {
+        this.$store.dispatch('auth/register', { register: this.data.register }).then(function (response) {
         }).catch(function (error) {
           console.log(error)
         })
